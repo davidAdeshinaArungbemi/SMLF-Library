@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/OurDataframe//CMakeFiles/progress.marks
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OurDataframe/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OurDataframe/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,31 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OurDataframe/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OurDataframe/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ODf
+# Convenience name for target.
+OurDataframe/CMakeFiles/ODf.dir/rule:
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 OurDataframe/CMakeFiles/ODf.dir/rule
+.PHONY : OurDataframe/CMakeFiles/ODf.dir/rule
 
-# Build rule for target.
-ODf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ODf
+# Convenience name for target.
+ODf: OurDataframe/CMakeFiles/ODf.dir/rule
 .PHONY : ODf
 
 # fast build rule for target.
 ODf/fast:
-	$(MAKE) $(MAKESILENT) -f OurDataframe/CMakeFiles/ODf.dir/build.make OurDataframe/CMakeFiles/ODf.dir/build
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f OurDataframe/CMakeFiles/ODf.dir/build.make OurDataframe/CMakeFiles/ODf.dir/build
 .PHONY : ODf/fast
+
+ODf.o: ODf.cpp.o
+.PHONY : ODf.o
+
+# target to build an object file
+ODf.cpp.o:
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f OurDataframe/CMakeFiles/ODf.dir/build.make OurDataframe/CMakeFiles/ODf.dir/ODf.cpp.o
+.PHONY : ODf.cpp.o
+
+ODf.i: ODf.cpp.i
+.PHONY : ODf.i
+
+# target to preprocess a source file
+ODf.cpp.i:
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f OurDataframe/CMakeFiles/ODf.dir/build.make OurDataframe/CMakeFiles/ODf.dir/ODf.cpp.i
+.PHONY : ODf.cpp.i
+
+ODf.s: ODf.cpp.s
+.PHONY : ODf.s
+
+# target to generate assembly for a file
+ODf.cpp.s:
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(MAKE) $(MAKESILENT) -f OurDataframe/CMakeFiles/ODf.dir/build.make OurDataframe/CMakeFiles/ODf.dir/ODf.cpp.s
+.PHONY : ODf.cpp.s
 
 # Help Target
 help:
@@ -138,6 +163,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ODf"
+	@echo "... ODf.o"
+	@echo "... ODf.i"
+	@echo "... ODf.s"
 .PHONY : help
 
 
@@ -149,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

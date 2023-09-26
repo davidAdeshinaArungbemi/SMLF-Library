@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/OurDataframe",
+  "command": "/usr/bin/clang++ -DODf_EXPORTS -isystem /usr/local/include/eigen3 -g -std=gnu++14 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -fPIC -o CMakeFiles/ODf.dir/ODf.cpp.o -c /Users/davidadeshina/Documents/Git-projects/SMLF-Library/OurDataframe/ODf.cpp",
+  "file": "/Users/davidadeshina/Documents/Git-projects/SMLF-Library/OurDataframe/ODf.cpp",
+  "output": "OurDataframe/CMakeFiles/ODf.dir/ODf.cpp.o"
+}
+]
