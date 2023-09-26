@@ -6,9 +6,12 @@ int main(int argc, char const *argv[])
     auto y_train_table = a.SelectColumns((ODf::Vec_UInt){a.ColumnSize() - 1});
     auto X_train_table = a.ColumnCut(0, a.ColumnSize() - 1);
 
-    // std::cout << raw_matrix << std::endl;
-    // LinearRegression::OLS lr;
-    // auto X_train = raw_matrix.block()
-    //                    lr.train();
+    auto X_train = X_train_table.ToMatrix();
+    auto y_train = y_train_table.ToMatrix();
+
+    LinearRegression::OLS lr;
+    lr.train(X_train, y_train);
+    auto prediction = lr.predict(X_train);
+    std::cout << prediction << std::endl;
     return 0;
 }

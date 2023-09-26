@@ -37,13 +37,14 @@ namespace SMLF
 #define LINEAR_IMPL
 void SMLF::LinearRegression::OLS::train(Eigen::MatrixXd X_train, Eigen::MatrixXd y_train)
 {
-    assert(X_train.rows() == X_train.cols());
     assert(X_train.rows() == y_train.rows());
     assert(y_train.cols() == 1);
 
     auto X_train_transpose = X_train.transpose();
 
-    this->hypothesisParameters = ((X_train * X_train_transpose).inverse()) *
+    auto square_mat = (X_train_transpose * X_train);
+    assert(square_mat.determinant() != 0 && "make use of gradient descent method");
+    this->hypothesisParameters = square_mat.inverse() *
                                  X_train_transpose * y_train;
 }
 
