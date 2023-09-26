@@ -1,4 +1,4 @@
 [submodule "OurDataframe"]
 	path = OurDataframe
-	url = https://github.com/davidAdeshinaArungbemi/SMLF-Library/tree/linear-regression
+	url = git@github.com:davidAdeshinaArungbemi/OurDataframe.git
     branch = main
