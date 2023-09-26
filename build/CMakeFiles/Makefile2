@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = /Users/davidadeshina/Documents/Git-projects/SMLF-Library/buil
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/main.dir/all
 all: OurDataframe/all
 .PHONY : all
 
@@ -71,6 +72,7 @@ preinstall: OurDataframe/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/main.dir/clean
 clean: OurDataframe/clean
 .PHONY : clean
 
@@ -88,6 +90,32 @@ OurDataframe/preinstall:
 # Recursive "clean" directory target.
 OurDataframe/clean: OurDataframe/CMakeFiles/ODf.dir/clean
 .PHONY : OurDataframe/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/main.dir
+
+# All Build rule for target.
+CMakeFiles/main.dir/all: OurDataframe/CMakeFiles/ODf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles --progress-num=3,4 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/davidadeshina/Documents/Git-projects/SMLF-Library/build/CMakeFiles 0
+.PHONY : CMakeFiles/main.dir/rule
+
+# Convenience name for target.
+main: CMakeFiles/main.dir/rule
+.PHONY : main
+
+# clean rule for target.
+CMakeFiles/main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
 
 #=============================================================================
 # Target rules for target OurDataframe/CMakeFiles/ODf.dir
