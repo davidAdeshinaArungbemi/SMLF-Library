@@ -90,8 +90,7 @@ void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Tab
 
     X_train = ODf::ColumnConcat(X_train, ones_column);
 
-
-    std::cout<<X_train;
+    std::cout << X_train;
 
     auto X_train_raw = X_train.ToMatrix();
     auto y_train_raw = y_train.ToMatrix();
