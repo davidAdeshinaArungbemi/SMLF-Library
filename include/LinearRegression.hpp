@@ -85,6 +85,14 @@ Eigen::MatrixXd SMLF::LinearRegression::OLS::predict(ODf::Table testing_data)
 void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Table y_train)
 {
     srand((unsigned)random_state);
+
+    ODf::Table ones_column("1", X_train.RowSize(), 1);
+
+    X_train = ODf::ColumnConcat(X_train, ones_column);
+
+
+    std::cout<<X_train;
+
     auto X_train_raw = X_train.ToMatrix();
     auto y_train_raw = y_train.ToMatrix();
 
