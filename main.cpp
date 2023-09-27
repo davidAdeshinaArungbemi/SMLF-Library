@@ -1,17 +1,18 @@
 #include "LinearRegression.hpp"
 using namespace SMLF;
+
 int main(int argc, char const *argv[])
 {
-    auto a = ODf::Table("/Users/davidadeshina/Documents/Git-projects/SMLF-Library/OurDataframe/DataSource/fakeData.csv");
-    auto y_train_table = a.SelectColumns((ODf::Vec_UInt){a.ColumnSize() - 1});
-    auto X_train_table = a.ColumnCut(0, a.ColumnSize() - 1);
+    auto a = ODf::Table("/Users/davidadeshina/Documents/Git-projects/SMLF-Library/OurDataframe/DataSource/tvmarketing.csv");
+    // std::cout << a;
+    auto y_train = a.SelectColumns((ODf::Vec_UInt){a.ColumnSize() - 1});
+    auto X_train = a.ColumnCut(0, a.ColumnSize() - 1);
 
-    auto X_train = X_train_table.ToMatrix();
-    auto y_train = y_train_table.ToMatrix();
+    std::cout << X_train << std::endl;
 
-    LinearRegression::OLS lr;
+    LinearRegression::GradientDescent lr(1e-7, 2000, 110);
     lr.train(X_train, y_train);
-    auto prediction = lr.predict(X_train);
-    std::cout << prediction << std::endl;
+    std::cout << "Results:\n"
+              << lr.predict(X_train) << std::endl;
     return 0;
 }
