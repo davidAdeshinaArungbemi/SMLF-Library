@@ -1,1 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -dynamiclib -Wl,-headerpad_max_install_names -o libODf.dylib -install_name @rpath/libODf.dylib CMakeFiles/ODf.dir/ODf.cpp.o 
