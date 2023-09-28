@@ -116,14 +116,10 @@ void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Tab
             momentum = gradient;
         }
         else
-        {
             this->weights -= (lr * gradient);
-        }
 
         if (this->show_cost)
-        {
             std::cout << SMLF::mse(X_train_raw * weights, y_train_raw) << std::endl;
-        }
 
         cost_history.push_back(SMLF::mse(X_train_raw * weights, y_train_raw));
         weight_history.push_back(weights);

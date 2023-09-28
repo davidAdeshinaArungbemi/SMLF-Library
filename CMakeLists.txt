@@ -4,6 +4,7 @@ project(SMLF)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(OurDataframe)
+add_subdirectory(examples)
 
 add_library(SMLF INTERFACE)
 
@@ -16,11 +17,7 @@ target_include_directories(SMLF INTERFACE
                 ${CMAKE_CURRENT_SOURCE_DIR}/OurDataframe
 )
 
-add_executable(main main.cpp)
-
 target_link_libraries(SMLF INTERFACE ODf)
-
-target_link_libraries(main PUBLIC SMLF)
 
 
 # add_library()
