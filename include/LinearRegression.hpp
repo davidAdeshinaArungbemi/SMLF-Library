@@ -13,7 +13,7 @@ namespace SMLF
 
         public:
             virtual void train(ODf::Table X_train, ODf::Table y_train) = 0;
-            virtual Eigen::MatrixXd predict(ODf::Table testing_data) = 0;
+            virtual Eigen::MatrixXd predict(ODf::Table X_test) = 0;
         };
 
         class OLS : public LinearRegression
@@ -23,32 +23,37 @@ namespace SMLF
 
         public:
             void train(ODf::Table X_train, ODf::Table y_train) override;
-            Eigen::MatrixXd predict(ODf::Table testing_data) override;
+            Eigen::MatrixXd predict(ODf::Table X_test) override;
         };
 
         class GradientDescent : public LinearRegression
         {
         private:
             double lr;
+            double alpha;
             size_t random_state;
             size_t epochs;
             size_t callback_count;
+            bool show_cost;
             Eigen::MatrixXd weights;
 
         public:
-            GradientDescent(double lr = 0.001, size_t epochs = 100, double random_state = 42, size_t callback_count = 100)
+            GradientDescent(double lr = 0.001, size_t epochs = 100, bool show_cost = false, double random_state = 42, double alpha = 0, size_t callback_count = 100)
             {
                 assert(epochs > 0);
                 assert(lr != 0);
+                assert(alpha >= 0 && alpha < 1);
 
                 this->lr = lr;
                 this->random_state = random_state;
                 this->epochs = epochs;
                 this->callback_count = callback_count;
+                this->show_cost = show_cost;
+                this->alpha = alpha;
             }
 
             void train(ODf::Table X_train, ODf::Table y_train) override;
-            Eigen::MatrixXd predict(ODf::Table testing_data) override;
+            Eigen::MatrixXd predict(ODf::Table X_test) override;
         };
     }
 }
@@ -75,11 +80,11 @@ void SMLF::LinearRegression::OLS::train(ODf::Table X_train, ODf::Table y_train)
     std::cout << hypothesisParameters << std::endl;
 }
 
-Eigen::MatrixXd SMLF::LinearRegression::OLS::predict(ODf::Table testing_data)
+Eigen::MatrixXd SMLF::LinearRegression::OLS::predict(ODf::Table X_test)
 {
-    auto testing_data_raw = testing_data.ToMatrix();
-    assert(testing_data_raw.cols() == hypothesisParameters.rows());
-    return testing_data_raw * hypothesisParameters;
+    auto X_test_raw = X_test.ToMatrix();
+    assert(X_test_raw.cols() == hypothesisParameters.rows());
+    return X_test_raw * hypothesisParameters;
 }
 
 void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Table y_train)
@@ -90,35 +95,39 @@ void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Tab
 
     X_train = ODf::ColumnConcat(X_train, ones_column);
 
-    std::cout << X_train;
-
     auto X_train_raw = X_train.ToMatrix();
     auto y_train_raw = y_train.ToMatrix();
 
-    this->weights.resize(X_train_raw.cols() + 1, 1);
+    this->weights.resize(X_train_raw.cols(), 1);
     this->weights.setRandom();
 
     ODf::VecDouble cost_history;
     std::vector<Eigen::MatrixXd> weight_history;
 
-    Eigen::MatrixXd momentum(X_train_raw.cols() + 1, 1);
+    Eigen::MatrixXd momentum(X_train_raw.cols(), 1);
     momentum.setConstant(0);
-
-    double momentum_coefficient = 0;
-    assert(momentum_coefficient >= 0 && momentum_coefficient < 1);
 
     for (size_t epoch = 0; epoch < this->epochs; epoch++)
     {
         auto gradient = (2.0 / X_train_raw.rows()) * X_train_raw.transpose() * (X_train_raw * this->weights - y_train_raw);
-        // this->weights -= (lr * gradient) + (momentum_coefficient * momentum);
-        this->weights -= (lr * gradient);
-        // momentum = gradient;
+        if (this->alpha == 0)
+        {
+            this->weights -= (lr * gradient) + (alpha * momentum);
+            momentum = gradient;
+        }
+        else
+        {
+            this->weights -= (lr * gradient);
+        }
 
-        std::cout
-            << SMLF::mse(X_train_raw * weights, y_train_raw) << std::endl;
+        if (this->show_cost)
+        {
+            std::cout << SMLF::mse(X_train_raw * weights, y_train_raw) << std::endl;
+        }
 
         cost_history.push_back(SMLF::mse(X_train_raw * weights, y_train_raw));
         weight_history.push_back(weights);
+
         if (cost_history.size() == this->callback_count)
         {
             if (!(*(cost_history.end() - 1) < *cost_history.begin()))
@@ -132,10 +141,16 @@ void SMLF::LinearRegression::GradientDescent::train(ODf::Table X_train, ODf::Tab
     }
 }
 
-Eigen::MatrixXd SMLF::LinearRegression::GradientDescent::predict(ODf::Table testing_data)
+Eigen::MatrixXd SMLF::LinearRegression::GradientDescent::predict(ODf::Table X_test)
 {
-    auto testing_data_raw = testing_data.ToMatrix();
-    assert(testing_data_raw.cols() == this->weights.rows());
-    return testing_data_raw * this->weights;
+    ODf::Table ones_column("1", X_test.RowSize(), 1);
+
+    X_test = ODf::ColumnConcat(X_test, ones_column);
+
+    auto X_test_raw = X_test.ToMatrix();
+
+    assert(X_test_raw.cols() == this->weights.rows());
+
+    return X_test_raw * this->weights;
 }
 #endif

@@ -31,8 +31,8 @@ double SMLF::mse(const Eigen::MatrixXd &prediction, const Eigen::MatrixXd &actua
         sum += difference[i];
     }
 
-    auto error = sum / prediction.rows() * 2;
+    auto error = sum / (prediction.rows() * 2);
 
-    return sum;
+    return error;
 }
 #endif

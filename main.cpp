@@ -8,11 +8,9 @@ int main(int argc, char const *argv[])
     auto y_train = a.SelectColumns((ODf::Vec_UInt){a.ColumnSize() - 1});
     auto X_train = a.ColumnCut(0, a.ColumnSize() - 1);
 
-    // std::cout << X_train << std::endl;
-
-    LinearRegression::GradientDescent lr(1e-7, 2000, 110);
+    LinearRegression::GradientDescent lr(1e-2, 1000, true, 42, 0, 2);
     lr.train(X_train, y_train);
-    // std::cout << "Results:\n"
-    //           << lr.predict(X_train) << std::endl;
+    std::cout << "Results:\n"
+              << lr.predict(X_train) << std::endl;
     return 0;
 }
